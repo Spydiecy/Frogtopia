@@ -1,38 +1,109 @@
-.App {
-  text-align: center;
+/* CSS for overall styling and animation enhancements */
+
+/* General styles */
+body {
+  font-family: 'Poppins', sans-serif; 
+  line-height: 1.6;
+  color: #333;
+  overflow-x: hidden; /* Prevent horizontal scroll on animations */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2, h3 {
+  font-weight: 600; 
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button {
+  cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Section-specific animations */
+
+/* Hero Section */
+#hero .text-yellow-300 { /* Animate the "Frog" span */
+  display: inline-block; /* Necessary for transform-origin */
+  transform-origin: left center; /* Rotate from the left side */
 }
 
-.App-link {
-  color: #61dafb;
+#hero h1.in-view .text-yellow-300 {
+  animation: rotateIn 1s ease forwards; /* Rotate in animation */
 }
 
-@keyframes App-logo-spin {
+@keyframes rotateIn {
   from {
-    transform: rotate(0deg);
+    transform: rotateY(-90deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    transform: rotateY(0deg);
+    opacity: 1;
   }
 }
+
+/* Features Section */
+#features .grid > div.in-view { /* Animate each feature card */
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Power Up Section */
+#powerup .flex > div.in-view { /* Animate the Efrogs and $CROAK cards */
+  animation: zoomIn 0.6s ease forwards;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Roadmap & Community Section */
+#roadmap-community .flex > div.in-view { /* Animate the Roadmap and Community sections */
+  animation: slideInFromSide 0.8s ease forwards;
+}
+
+#roadmap-community .flex > :nth-child(1).in-view { /* Roadmap section slides from left */
+  animation-name: slideInFromLeft;
+}
+
+#roadmap-community .flex > :nth-child(2).in-view { /* Community section slides from right */
+  animation-name: slideInFromRight;
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Add more styles to customize colors, spacing, etc. as per your preference */
