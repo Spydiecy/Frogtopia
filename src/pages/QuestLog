@@ -1,0 +1,75 @@
+import React, { useState, useEffect } from 'react';
+
+const QuestLog = ({ gameContract, account, web3, ownedFrogs, onQuestComplete }) => {
+  const [quests, setQuests] = useState([]);
+  const [selectedFrog, setSelectedFrog] = useState(null);
+  const [completing, setCompleting] = useState(false);
+
+  useEffect(() => {
+    loadQuests();
+  }, []);
+
+  const loadQuests = async () => {
+    try {
+      const questCount = await gameContract.methods.questCount().call();
+      const loadedQuests = [];
+      for (let i = 1; i <= questCount; i++) {
+        const quest = await gameContract.methods.quests(i).call();
+        loadedQuests.push({ id: i, ...quest });
+      }
+      setQuests(loadedQuests);
+    } catch (error) {
+      console.error("Error loading quests:", error);
+    }
+  };
+
+  const completeQuest = async (questId) => {
+    if (!selectedFrog) return;
+    setCompleting(true);
+    try {
+      await gameContract.methods.completeQuest(selectedFrog, questId).send({ from: account });
+      onQuestComplete();
+    } catch (error) {
+      console.error("Error completing quest:", error);
+    }
+    setCompleting(false);
+  };
+
+  return (
+    <div className="quest-log">
+      <h2 className="text-2xl font-bold mb-4">Quest Log</h2>
+      <div className="mb-4">
+        <label className="block mb-2">Select Frog:</label>
+        <select
+          value={selectedFrog || ''}
+          onChange={(e) => setSelectedFrog(e.target.value)}
+          className="bg-green-700 text-white px-3 py-1 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+        >
+          <option value="">Select a Frog</option>
+          {ownedFrogs.map((frogId) => (
+            <option key={frogId} value={frogId}>Frog #{frogId}</option>
+          ))}
+        </select>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {quests.map((quest) => (
+          <div key={quest.id} className="bg-green-700 p-4 rounded shadow-lg">
+            <h3 className="text-xl font-semibold mb-2">{quest.name}</h3>
+            <p>Reward: {web3.utils.fromWei(quest.rewardCroak, 'ether')} CROAK</p>
+            <p>Experience: {quest.rewardExp}</p>
+            <p>Required Level: {quest.requiredLevel}</p>
+            <button
+              onClick={() => completeQuest(quest.id)}
+              disabled={completing || !selectedFrog}
+              className="bg-yellow-500 text-green-800 px-3 py-1 rounded mt-2 hover:bg-yellow-600 transition-colors duration-300"
+            >
+              {completing ? 'Completing...' : 'Complete Quest'}
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default QuestLog;

@@ -1,0 +1,101 @@
+import React, { useState, useEffect } from 'react';
+
+const FrogManagement = ({ ownedFrogs, gameContract, frogNFTContract, account, web3, onFrogUpdate }) => {
+  const [selectedFrog, setSelectedFrog] = useState(null);
+  const [frogData, setFrogData] = useState(null);
+  const [moving, setMoving] = useState(false);
+
+  useEffect(() => {
+    if (selectedFrog) {
+      loadFrogData(selectedFrog);
+    }
+  }, [selectedFrog]);
+
+  const loadFrogData = async (frogId) => {
+    try {
+      const data = await gameContract.methods.frogs(frogId).call();
+      setFrogData(data);
+    } catch (error) {
+      console.error("Error loading frog data:", error);
+    }
+  };
+
+  const initializeFrog = async (frogId) => {
+    try {
+      await gameContract.methods.initializeFrog(frogId).send({ from: account });
+      await loadFrogData(frogId);
+      onFrogUpdate();
+    } catch (error) {
+      console.error("Error initializing frog:", error);
+    }
+  };
+
+  const moveFrog = async (direction) => {
+    if (!frogData) return;
+    setMoving(true);
+
+    let newX = parseInt(frogData.x);
+    let newY = parseInt(frogData.y);
+
+    switch (direction) {
+      case 'up': newY = (newY - 1 + 20) % 20; break;
+      case 'down': newY = (newY + 1) % 20; break;
+      case 'left': newX = (newX - 1 + 20) % 20; break;
+      case 'right': newX = (newX + 1) % 20; break;
+      default: return;
+    }
+
+    try {
+      await gameContract.methods.moveFrog(selectedFrog, newX, newY).send({ from: account });
+      await loadFrogData(selectedFrog);
+      onFrogUpdate();
+    } catch (error) {
+      console.error("Error moving frog:", error);
+    }
+    setMoving(false);
+  };
+
+  return (
+    <div className="frog-management">
+      <h2 className="text-2xl font-bold mb-4">Frog Management</h2>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+        {ownedFrogs.map((frogId) => (
+          <button
+            key={frogId}
+            onClick={() => setSelectedFrog(frogId)}
+            className={`px-4 py-2 rounded transition-colors duration-300 ${selectedFrog === frogId ? 'bg-yellow-500 text-green-800' : 'bg-green-700 text-yellow-500 hover:bg-green-600'}`}
+          >
+            Frog #{frogId}
+          </button>
+        ))}
+      </div>
+      {selectedFrog && frogData && (
+        <div className="bg-green-700 p-4 rounded shadow-lg">
+          <h3 className="text-xl font-semibold mb-2">Frog #{selectedFrog}</h3>
+          <p>Position: ({frogData.x}, {frogData.y})</p>
+          <p>Level: {frogData.level}</p>
+          <p>Experience: {frogData.experience}</p>
+          <p>Resources: Flies: {frogData.flies}, Leaves: {frogData.leaves}, Water: {frogData.water}</p>
+          <div className="grid grid-cols-3 gap-2 mt-4">
+            <button onClick={() => moveFrog('up')} disabled={moving} className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300">Up</button>
+            <div></div>
+            <button onClick={() => moveFrog('down')} disabled={moving} className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300">Down</button>
+            <button onClick={() => moveFrog('left')} disabled={moving} className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300">Left</button>
+            <div></div>
+            <button onClick={() => moveFrog('right')} disabled={moving} className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300">Right</button>
+          </div>
+        </div>
+      )}
+      {selectedFrog && !frogData && (
+        <button
+          onClick={() => initializeFrog(selectedFrog)}
+          className="bg-yellow-500 text-green-800 px-4 py-2 rounded hover:bg-yellow-600 transition-colors duration-300"
+        >
+          Initialize Frog #{selectedFrog}
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default FrogManagement;
