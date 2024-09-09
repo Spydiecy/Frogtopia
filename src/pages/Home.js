@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { FaMapMarkedAlt, FaGamepad, FaUsers, FaExchangeAlt } from 'react-icons/fa';
 
@@ -9,6 +10,8 @@ function Home() {
     to: { opacity: 1 },
     config: { duration: 1000 }
   });
+
+  const navigate = useNavigate();
 
   return (
     <animated.div style={fadeIn} className="flex flex-col min-h-screen bg-gradient-to-b from-green-600 to-green-800 text-white">
@@ -36,7 +39,7 @@ function Home() {
         {/* CTA Section */}
         <section className="container mx-auto mt-24 mb-16 px-4 text-center">
           <h2 className="text-4xl font-bold mb-8 text-yellow-300">Ready to Start Your Adventure?</h2>
-          <button className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">
+          <button onClick={() => navigate('/game')} className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">
             Enter Frogtopia
           </button>
         </section>

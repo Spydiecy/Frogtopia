@@ -41,6 +41,14 @@ function LandingPage() {
     config: { mass: 5, tension: 2000, friction: 200 }
   });
 
+  const linkRedirect = (url) => {
+    window.open('https://x.com/efrogs_on_linea?lang=en', '_blank');
+  };
+
+  const linkRedirect2 = (url) => {
+    window.open('https://x.com/CROAK_on_linea', '_blank');
+  };
+
   // Features Section Animation
   const [featuresRef, featuresInView] = useInView({
     threshold: 0.5,
@@ -185,7 +193,7 @@ function LandingPage() {
                 <li>Earn more $CROAK</li>
                 <li>Showcase your unique frog</li>
               </ul>
-              <button className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold py-2 px-6 rounded-full text-lg transition duration-300">
+              <button onClick={linkRedirect} className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold py-2 px-6 rounded-full text-lg transition duration-300">
                 Learn More
               </button>
             </animated.div>
@@ -201,7 +209,7 @@ function LandingPage() {
                 <li>Trade with other players</li>
                 <li>Fuel the Frogtopia economy</li>
               </ul>
-              <button className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold py-2 px-6 rounded-full text-lg transition duration-300">
+              <button onClick={linkRedirect2} className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold py-2 px-6 rounded-full text-lg transition duration-300">
                 Get $CROAK
               </button>
             </animated.div>
