@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Frogtopia
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Frogtopia is an engaging blockchain-based game built on the Linea network. Players can mint and manage frog NFTs, acquire and develop land, complete quests, and use various items in a vibrant, interactive game world.
 
-## Available Scripts
+![image](https://github.com/user-attachments/assets/38bd4778-fd71-4e42-b121-20ed978df7f9)
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Smart Contracts](#smart-contracts)
+- [Game Components](#game-components)
+- [How to Play](#how-to-play)
+- [Contributing](#contributing)
+- [License](#license)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Mint and manage unique frog NFTs
+- Acquire and develop virtual land
+- Complete quests to earn rewards and experience
+- Use and manage in-game items
+- Interactive game world with a grid-based movement system
+- Integration with MetaMask for seamless blockchain interactions
 
-### `npm test`
+## Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React.js
+- Web3.js
+- Solidity (for smart contracts)
+- Tailwind CSS
+- Linea Network
 
-### `npm run build`
+## Smart Contracts
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Frogtopia uses three main smart contracts:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. FrogtopiaGameWorld: Manages the game logic, land, quests, and items.
+2. CROAKToken: ERC20 token used as the in-game currency.
+3. FrogtopiaNFT: ERC721 token representing the frog NFTs.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ensure these contracts are deployed to the Linea network before running the frontend application.
 
-### `npm run eject`
+## Game Components
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- GameWorld: Main game component orchestrating all game activities.
+- LandGrid: Displays and manages the land grid.
+- FrogManager: Handles frog NFT management and movement.
+- QuestLog: Displays available quests and handles quest completion.
+- Inventory: Shows and manages the player's inventory items.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How to Play
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Connect your MetaMask wallet to the Linea network.
+2. Mint frog NFTs from the Marketplace.
+3. In the Game World, mint land and move your frogs around the grid.
+4. Complete quests to earn CROAK tokens and experience.
+5. Use items from your inventory to boost your frogs' abilities.
+6. Develop your land to increase resource generation.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Contributing
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Contributions are welcome! Please feel free to submit a Pull Request.
+   
